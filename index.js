@@ -190,6 +190,9 @@ const schema = {
     plant: {
       type: 'object',
       properties: {
+        Name: {
+          type: 'string'
+        },
         Type: {
           type: 'string',
           enum: ['ABB PVS 100', 'ABB Trio', 'Solarmax'],
@@ -236,6 +239,9 @@ const schema = {
     setpoint: {
       type: 'object',
       properties: {
+        Name: {
+          type: 'string'
+        },
         Type: {
           type: 'string',
           enum: ['Modbus Digital', 'Modbus Analog', 'IEC104', 'Fixed'],
@@ -339,6 +345,9 @@ const schema = {
       title: 'Control',
       type: 'object',
       properties: {
+        Name: {
+          type: 'string'
+        },
         ramp: {
           title: 'Ramp value in %',
           type: 'integer',
