@@ -8,9 +8,20 @@ const schema = {
     DigitalMatrixRow: {
       type: 'object',
       properties: {
-        Channel: {
-          type: 'number',
-          enum: [1, 2, 3, 4, 5]
+        DI_1: {
+          type: 'boolean'
+        },
+        DI_2: {
+          type: 'boolean'
+        },
+        DI_3: {
+          type: 'boolean'
+        },
+        DI_4: {
+          type: 'boolean'
+        },
+        DI_5: {
+          type: 'boolean'
         },
         Value: {
           type: 'number'
@@ -18,23 +29,11 @@ const schema = {
       }
     },
     DigitalMatrix: {
-      type: 'object',
-      properties: {
-        Value1: {
-          $ref: '#/definitions/DigitalMatrixRow'
-        },
-        Value2: {
-          $ref: '#/definitions/DigitalMatrixRow'
-        },
-        Value3: {
-          $ref: '#/definitions/DigitalMatrixRow'
-        },
-        Value4: {
-          $ref: '#/definitions/DigitalMatrixRow'
-        },
-        Value5: {
-          $ref: '#/definitions/DigitalMatrixRow'
-        }
+      type: 'array',
+      minItems: 0,
+      items: {
+        title: 'Step',
+        $ref: '#/definitions/DigitalMatrixRow'
       }
     },
     ModbusType: {
@@ -104,7 +103,7 @@ const schema = {
                 Transport: {
                   $ref: '#/definitions/ModbusType'
                 },
-                Matrix: {
+                'Setpoint DI Settings': {
                   $ref: '#/definitions/DigitalMatrix'
                 }
               }
@@ -164,13 +163,25 @@ const schema = {
 };
 
 const log = type => console.log.bind(console, type);
+class FormComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { formData: null };
+  }
 
-render(
-  <Form
-    schema={schema}
-    onChange={log('changed')}
-    onSubmit={log('submitted')}
-    onError={log('errors')}
-  />,
-  document.getElementById('root')
-);
+  onFormDataChanged = ({ formData = '' }) =>
+    console.log(JSON.stringify(formData));
+
+  render() {
+    return (
+      <Form
+        schema={schema}
+        onChange={this.onFormDataChanged}
+        onSubmit={log('submitted')}
+        onError={log('errors')}
+      />
+    );
+  }
+}
+
+render(<FormComponent />, document.getElementById('root'));
