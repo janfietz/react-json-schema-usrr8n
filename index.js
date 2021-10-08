@@ -11,52 +11,41 @@ const schema = {
         dev: {
           title: 'Device',
           type: 'string',
-          enum: ['/dev/ttyS0', '/dev/ttyS1', '/dev/ttyS2', '/dev/ttyS3']
+          enum: ['/dev/ttyS0', '/dev/ttyS1', '/dev/ttyS2', '/dev/ttyS3'],
         },
         transferRate: {
           title: 'Transfer Rate',
           type: 'integer',
           enum: [
-            300,
-            600,
-            1200,
-            2400,
-            4800,
-            9600,
-            14400,
-            19200,
-            38400,
-            57600,
-            115200,
-            230400,
-            460800
+            300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600,
+            115200, 230400, 460800,
           ],
-          default: 19200
+          default: 19200,
         },
         protocol: {
           title: 'Protocol Setting',
           type: 'string',
           enum: ['8N1', '8E1', '8O1', '7N1'],
-          default: '8N1'
-        }
-      }
+          default: '8N1',
+        },
+      },
     },
     ModbusTCPSettings: {
       type: 'object',
       properties: {
         Port: {
           type: 'number',
-          default: 502
+          default: 502,
         },
         Address: {
           type: 'string',
-          default: '192.168.0.1'
+          default: '192.168.0.1',
         },
         'Slave Node': {
           type: 'number',
-          default: 1
-        }
-      }
+          default: 1,
+        },
+      },
     },
     SolorMaxComSettings: {
       type: 'object',
@@ -64,15 +53,15 @@ const schema = {
         Transport: {
           type: 'string',
           enum: ['TCP', 'Serial'],
-          default: 'TCP'
+          default: 'TCP',
         },
         DevAddress: {
           title: 'Device Address',
           type: 'integer',
           default: 1,
           minimum: 1,
-          maximum: 249
-        }
+          maximum: 249,
+        },
       },
       dependencies: {
         Transport: {
@@ -80,7 +69,7 @@ const schema = {
             {
               properties: {
                 Transport: {
-                  enum: ['TCP']
+                  enum: ['TCP'],
                 },
                 ComSettings: {
                   title: 'Communication Settings',
@@ -88,61 +77,61 @@ const schema = {
                   properties: {
                     Port: {
                       type: 'number',
-                      default: 502
+                      default: 502,
                     },
                     Address: {
                       type: 'string',
-                      default: '192.168.0.1'
-                    }
-                  }
-                }
-              }
+                      default: '192.168.0.1',
+                    },
+                  },
+                },
+              },
             },
             {
               properties: {
                 Transport: {
-                  enum: ['Serial']
+                  enum: ['Serial'],
                 },
                 ComSettings: {
                   title: 'Communication Settings',
-                  $ref: '#/definitions/SerialDeviceSettings'
-                }
-              }
-            }
-          ]
-        }
-      }
+                  $ref: '#/definitions/SerialDeviceSettings',
+                },
+              },
+            },
+          ],
+        },
+      },
     },
     DigitalMatrixRow: {
       type: 'object',
       properties: {
         DI_1: {
-          type: 'boolean'
+          type: 'boolean',
         },
         DI_2: {
-          type: 'boolean'
+          type: 'boolean',
         },
         DI_3: {
-          type: 'boolean'
+          type: 'boolean',
         },
         DI_4: {
-          type: 'boolean'
+          type: 'boolean',
         },
         DI_5: {
-          type: 'boolean'
+          type: 'boolean',
         },
         'Active power output %': {
-          type: 'number'
-        }
-      }
+          type: 'number',
+        },
+      },
     },
     DigitalMatrix: {
       type: 'array',
       minItems: 0,
       items: {
         title: 'Step',
-        $ref: '#/definitions/DigitalMatrixRow'
-      }
+        $ref: '#/definitions/DigitalMatrixRow',
+      },
     },
     ModbusType: {
       type: 'object',
@@ -150,8 +139,8 @@ const schema = {
         Transport: {
           type: 'string',
           enum: ['TCP', 'RTU'],
-          default: 'TCP'
-        }
+          default: 'TCP',
+        },
       },
       dependencies: {
         Transport: {
@@ -159,18 +148,18 @@ const schema = {
             {
               properties: {
                 Transport: {
-                  enum: ['TCP']
+                  enum: ['TCP'],
                 },
                 ComSetting: {
                   title: 'Communication Settings',
-                  $ref: '#/definitions/ModbusTCPSettings'
-                }
-              }
+                  $ref: '#/definitions/ModbusTCPSettings',
+                },
+              },
             },
             {
               properties: {
                 Transport: {
-                  enum: ['RTU']
+                  enum: ['RTU'],
                 },
                 Device: {
                   type: 'string',
@@ -178,26 +167,26 @@ const schema = {
                     '/dev/ttyS0',
                     '/dev/ttyS1',
                     '/dev/ttyS2',
-                    '/dev/ttyS3'
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
+                    '/dev/ttyS3',
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
     },
     plant: {
       type: 'object',
       properties: {
         Name: {
-          type: 'string'
+          type: 'string',
         },
         Type: {
           type: 'string',
           enum: ['ABB PVS 100', 'ABB Trio', 'Solarmax'],
-          default: 'ABB PVS 100'
-        }
+          default: 'ABB PVS 100',
+        },
       },
       dependencies: {
         Type: {
@@ -205,48 +194,48 @@ const schema = {
             {
               properties: {
                 Type: {
-                  enum: ['ABB PVS 100']
+                  enum: ['ABB PVS 100'],
                 },
                 'Communication Settings': {
-                  $ref: '#/definitions/ModbusTCPSettings'
-                }
-              }
+                  $ref: '#/definitions/ModbusTCPSettings',
+                },
+              },
             },
             {
               properties: {
                 Type: {
-                  enum: ['ABB Trio']
+                  enum: ['ABB Trio'],
                 },
                 'Communication Settings': {
-                  $ref: '#/definitions/ModbusTCPSettings'
-                }
-              }
+                  $ref: '#/definitions/ModbusTCPSettings',
+                },
+              },
             },
             {
               properties: {
                 Type: {
-                  enum: ['Solarmax']
+                  enum: ['Solarmax'],
                 },
                 'Communication Settings': {
-                  $ref: '#/definitions/SolorMaxComSettings'
-                }
-              }
-            }
-          ]
-        }
-      }
+                  $ref: '#/definitions/SolorMaxComSettings',
+                },
+              },
+            },
+          ],
+        },
+      },
     },
     setpoint: {
       type: 'object',
       properties: {
         Name: {
-          type: 'string'
+          type: 'string',
         },
         Type: {
           type: 'string',
           enum: ['Modbus Digital', 'Modbus Analog', 'IEC104', 'Fixed'],
-          default: 'Modbus Digital'
-        }
+          default: 'Modbus Digital',
+        },
       },
       dependencies: {
         Type: {
@@ -254,64 +243,64 @@ const schema = {
             {
               properties: {
                 Type: {
-                  enum: ['Modbus Digital']
+                  enum: ['Modbus Digital'],
                 },
                 Transport: {
-                  $ref: '#/definitions/ModbusType'
+                  $ref: '#/definitions/ModbusType',
                 },
                 'Setpoint DI Settings': {
-                  $ref: '#/definitions/DigitalMatrix'
-                }
-              }
+                  $ref: '#/definitions/DigitalMatrix',
+                },
+              },
             },
             {
               properties: {
                 Type: {
-                  enum: ['Modbus Analog']
+                  enum: ['Modbus Analog'],
                 },
                 Transport: {
-                  $ref: '#/definitions/ModbusType'
-                }
+                  $ref: '#/definitions/ModbusType',
+                },
               },
-              required: ['Address']
+              required: ['Address'],
             },
             {
               properties: {
                 Type: {
-                  enum: ['IEC104']
+                  enum: ['IEC104'],
                 },
                 ASDU: {
                   type: 'number',
-                  default: 1
+                  default: 1,
                 },
                 Port: {
                   type: 'number',
-                  default: 2404
+                  default: 2404,
                 },
                 Address: {
                   type: 'string',
-                  default: '192.168.0.1'
-                }
+                  default: '192.168.0.1',
+                },
               },
-              required: ['Address']
+              required: ['Address'],
             },
             {
               properties: {
                 Type: {
-                  enum: ['Fixed']
+                  enum: ['Fixed'],
                 },
                 fixedValue: {
                   title: 'Fixed limitation value in %',
-                  type: 'integer'
+                  type: 'integer',
                 },
-                required: 'fixedValue'
+                required: 'fixedValue',
               },
-              required: ['Address']
-            }
-          ]
-        }
-      }
-    }
+              required: ['Address'],
+            },
+          ],
+        },
+      },
+    },
   },
   type: 'object',
   properties: {
@@ -320,8 +309,8 @@ const schema = {
       title: 'Setpoint',
       minItems: 0,
       items: {
-        $ref: '#/definitions/setpoint'
-      }
+        $ref: '#/definitions/setpoint',
+      },
     },
     meterList: {
       type: 'array',
@@ -330,37 +319,77 @@ const schema = {
       items: {
         type: 'string',
         enum: ['Meter Type 1', 'Meter Type 2', 'Meter Type 3'],
-        default: 'Meter Type 1'
-      }
+        default: 'Meter Type 1',
+      },
     },
     controlledEntityList: {
       type: 'array',
       title: 'Plant devices',
       minItems: 0,
       items: {
-        $ref: '#/definitions/plant'
-      }
+        $ref: '#/definitions/plant',
+      },
     },
     controlLogic: {
       title: 'Control',
       type: 'object',
       properties: {
         Name: {
-          type: 'string'
+          type: 'string',
         },
         ramp: {
           title: 'Ramp value in %',
           type: 'integer',
           default: 10,
           minimum: 1,
-          maximum: 100
-        }
-      }
-    }
-  }
+          maximum: 100,
+        },
+        switch: {
+          title: "Show subschema when true",
+          type: 'boolean',
+        },
+        switchDefined: {
+          title: "Show subschema when defined",
+          type: 'boolean',
+        },
+      },
+      dependencies: {
+        switch: {
+          oneOf: [
+            {
+              properties: {
+                switch: {
+                  title: "Show subschema when defined",
+                  type: 'boolean',
+                  const: true
+                },
+                otherObject: {
+                  type: 'string',
+                },
+              },
+            },
+          ],
+        },
+        switchDefined: {
+          oneOf: [
+            {
+              properties: {
+                switchDefined: {
+                  type: 'boolean'
+                },
+                otherObjectDefined: {
+                  type: 'string',
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
 };
 
-const log = type => console.log.bind(console, type);
+const log = (type) => console.log.bind(console, type);
 class FormComponent extends Component {
   constructor(props) {
     super(props);
